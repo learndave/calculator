@@ -23,6 +23,7 @@ body {
     margin-top: auto;
     padding: 30px;
     border-radius: 40px;
+    flex-shrink: 0;
 }
 
 .screen {
