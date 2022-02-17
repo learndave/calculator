@@ -5,7 +5,7 @@ function clearScreen() {
     topScreen.innerHTML = "";
 }
 
-function typeNumber(e) {
+function inputMainScreen(e) {
     // prevent over
     if (mainScreen.textContent.length >= 13) {
         return;
@@ -31,12 +31,26 @@ function typeNumber(e) {
     updateMainScreen(mainScreen.textContent + e.target.value);
 }
 
+function inputNumber(e) {
+    ops = ["×","÷","+","−"];
+    if (ops.includes(mainScreen.textContent)) {
+        topScreen.textContent += mainScreen.textContent;
+        mainScreen.textContent = 0;
+        inputMainScreen(e);
+    } else {
+        inputMainScreen(e);
+    }
+}
+
 function convertToCalcNumber(text) {
-    console.log("xxxxxxxxxx: " + text);
     text = parseFloat(text.replace(/,/g, ""));
     numberWithCommas = text.toLocaleString();
-    console.log(numberWithCommas);
     return numberWithCommas;
+}
+
+function convertToFloat(text) {
+    text = parseFloat(text.replace(/,/g, ""));
+    return text.toString();
 }
 
 function updateMainScreen(newText) {
@@ -55,8 +69,49 @@ function del() {
         mainScreen.textContent = mainScreen.textContent.slice(0,-1)
         return;
     }
-    console.log(mainScreen.textContent.slice(0,-1));
+    // prevent rounding off when there is "."
+    if (mainScreen.textContent.indexOf(".") != -1) {
+        mainScreen.textContent = mainScreen.textContent.slice(0,-1)
+        return;
+    }
     updateMainScreen(mainScreen.textContent.slice(0,-1));
+}
+
+function calculateExisting() {
+    if (topScreen.textContent == "") {
+        return convertToFloat(mainScreen.textContent);
+    } else {
+        currentNum = convertToFloat(mainScreen.textContent);
+        ans = convertToFloat(ans);
+        let result;
+        if (operation == "multiply") {
+            result = ans * currentNum;
+        } else if (operation == "divide") {
+            result = ans / currentNum;
+        } else if (operation == "add") {
+            result = ans + currentNum;
+        } else if (operation == "subtract") {
+            result = ans - currentNum;
+        }
+        result = Math.round(result * 100) / 100; 
+        return result.toString();
+    }
+}
+
+function operate(e) {
+    ops = ["×","÷","+","−"];
+    if (ops.includes(mainScreen.textContent)) {
+    } else {
+        ans = calculateExisting();
+        topScreen.textContent = ans;
+        operation = e.target.id;
+        if (operation == "calc") {
+            topScreen.textContent = "";
+            mainScreen.textContent = ans;
+            return;
+        }
+        mainScreen.textContent = e.target.value;
+    }
 }
 
 // ==================================================
@@ -66,14 +121,20 @@ function del() {
 
 const mainScreen = document.querySelector(".screen-text.main");
 const topScreen = document.querySelector(".screen-text.top");
-const numbers = Array.from(document.querySelectorAll(".button.number"));
-
 
 const clearButton = document.querySelector("#clear");
 const delButton = document.querySelector("#del");
+const numbers = Array.from(document.querySelectorAll(".button.number"));
+const operators = Array.from(document.querySelectorAll(".operator"));
+
+let ans = 0;
+let operation;
 
 clearButton.onclick = () => clearScreen();
 delButton.onclick = () => del();
 for (let number of numbers) {
-    number.onclick = function(event){typeNumber(event)};
+    number.onclick = function(event){inputNumber(event)};
+}
+for (let operator of operators) {
+    operator.onclick = function(event) {operate(event)};
 }
