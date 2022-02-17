@@ -101,6 +101,8 @@ function calculateExisting() {
 function operate(e) {
     ops = ["×","÷","+","−"];
     if (ops.includes(mainScreen.textContent)) {
+        mainScreen.textContent = e.target.value
+        operation = e.target.id;
     } else {
         ans = calculateExisting();
         topScreen.textContent = ans;
