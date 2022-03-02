@@ -109,7 +109,7 @@ function operate(e) {
         operation = e.target.id;
         if (operation == "calc") {
             topScreen.textContent = "";
-            mainScreen.textContent = ans;
+            mainScreen.textContent = convertToCalcNumber(ans);
             return;
         }
         mainScreen.textContent = e.target.value;
