@@ -45,6 +45,9 @@ function inputNumber(e) {
 function convertToCalcNumber(text) {
     text = parseFloat(text.replace(/,/g, ""));
     numberWithCommas = text.toLocaleString();
+    if (numberWithCommas.length > 13) {
+        return "MATH ERROR";
+    }  
     return numberWithCommas;
 }
 

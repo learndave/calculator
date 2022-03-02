@@ -117,12 +117,14 @@ body {
 
     @media (max-width: 500px) {
 
+        .button.setting,
         .button {
             font-size: 24px;
         }
 
-        .button.setting {
-            font-size: 24px;
+
+        .screen-text.main {
+            font-size: 34px;
         }
 
         .buttons {
