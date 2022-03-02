@@ -107,6 +107,7 @@ body {
 
     .calculator {
         width: calc(450vw / 7);
+        height: calc(450vw / 7 * (5 / 4.5));
     }
 
     .button#threezeroes {
