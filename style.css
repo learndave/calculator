@@ -113,8 +113,9 @@ body {
     .button#threezeroes {
         font-size: 24px;
     }
+    
 
-    @media (max-width: 600px) {
+    @media (max-width: 500px) {
 
         .button {
             font-size: 24px;
@@ -122,6 +123,15 @@ body {
 
         .button.setting {
             font-size: 24px;
+        }
+
+        .buttons {
+            gap: 10px;
+        }
+
+        .calculator {
+            gap: 25px;
+            padding: 25px;
         }
     }
 }
