@@ -54,8 +54,8 @@ body {
     display: grid;
     flex: 10;
     gap: 15px;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-template-columns: repeat(5, minmax(0,1fr));
+    grid-template-rows: repeat(4, minmax(0,1fr));
     justify-content: space-between;
 }
 
@@ -101,4 +101,15 @@ body {
     height: 3%;
     padding-top: 10px;
     text-align: center;
+}
+
+@media (max-width: 700px) {
+
+    .calculator {
+        width: calc(450vw / 7);
+    }
+
+    .button#threezeroes {
+        font-size: 24px;
+    }
 }
